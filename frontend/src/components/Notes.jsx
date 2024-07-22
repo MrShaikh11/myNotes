@@ -2,7 +2,9 @@ import React from "react";
 import NoteCard from "./NoteCard"; // Adjust the path as needed
 
 const Notes = ({ notes, onDelete }) => {
-  if (!notes || notes.length === 0) {
+  if (!notes)
+    return <div className="text-xl text-red-400 font-bold"> Please Log in</div>;
+  else if (notes.length === 0) {
     return <div>No notes available</div>;
   }
   return (

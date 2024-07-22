@@ -45,10 +45,7 @@ app.delete("/notes/:id", async (req, res) => {
   try {
     const noteId = req.params.id;
     console.log(noteId);
-    const deletedNote = await NoteModel.findByIdAndDelete({
-      _id: noteId,
-      userId: req.user._id,
-    });
+    const deletedNote = await NoteModel.findByIdAndDelete(noteId);
     if (deletedNote) {
       res.json({ message: "Note deleted successfully", deletedNote });
     } else {
