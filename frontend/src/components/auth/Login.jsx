@@ -21,7 +21,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await axios.get(
-        `http://localhost:8081/login?email=${email}&password=${password}`
+        `https://my-notes-backend-beta.vercel.app/login?email=${email}&password=${password}`
       );
       console.log(res);
       if (res.data.token) {

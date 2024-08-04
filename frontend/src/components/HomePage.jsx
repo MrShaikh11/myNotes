@@ -32,7 +32,7 @@ const HomePage = () => {
       const token = localStorage.getItem("jwtToken");
       if (token) {
         try {
-          const res = await axios.get("http://localhost:8081/notes", {
+          const res = await axios.get("https://my-notes-backend-beta.vercel.app/notes", {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -60,7 +60,7 @@ const HomePage = () => {
 
     try {
       // Send DELETE request to backend
-      await axios.delete(`http://localhost:8081/notes/${id}`, {
+      await axios.delete(`https://my-notes-backend-beta.vercel.app/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`, // Include the token in the headers
         },

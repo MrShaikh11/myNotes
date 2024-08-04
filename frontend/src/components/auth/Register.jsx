@@ -25,11 +25,14 @@ const Register = () => {
     e.preventDefault();
     try {
       if (rpass == pass) {
-        const res = await axios.post(`http://localhost:8081/register`, {
-          name: name,
-          email: email,
-          password: pass,
-        });
+        const res = await axios.post(
+          `https://my-notes-backend-beta.vercel.app/register`,
+          {
+            name: name,
+            email: email,
+            password: pass,
+          }
+        );
         if (res.data.includes("User with email")) {
           setError(res.data);
         }

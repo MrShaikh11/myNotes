@@ -10,7 +10,15 @@ const NoteModel = require("./models/notes.models");
 require("dotenv").config();
 dbConn();
 
-app.use(cors());
+app.use(
+  cors(
+    cors({
+      origin: "https://my-notes-backend-beta.vercel.app/", // Replace with your frontend's origin
+      methods: ["GET", "POST", "DELETE"],
+      allowedHeaders: ["Content-Type", "Authorization"],
+    })
+  )
+);
 app.use(express.json());
 
 app.get("/notes", auth, (req, res) => {
