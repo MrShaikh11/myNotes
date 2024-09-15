@@ -28,7 +28,7 @@ function Form({ toggleForm, onAddNote }) {
     try {
       // Send a POST request to add the note
       const res = await axios.post(
-        "https://my-notes-backend-beta.vercel.app/addNote",
+        "http://localhost:8081/addNote",
         {
           title: title,
           note: note,

@@ -24,14 +24,11 @@ function Sidebar() {
       const token = localStorage.getItem("jwtToken");
       if (token) {
         try {
-          const res = await axios.get(
-            "https://my-notes-backend-beta.vercel.app/user",
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
+          const res = await axios.get("http://localhost:8081/user", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
           // console.log(res.data.user.name);
           setUser(res.data.user.name);
         } catch (error) {

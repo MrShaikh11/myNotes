@@ -10,15 +10,7 @@ const NoteModel = require("./models/notes.models");
 require("dotenv").config();
 dbConn();
 
-app.use(
-  cors(
-    cors({
-      origin: "https://my-notes-backend-beta.vercel.app/", // Replace with your frontend's origin
-      methods: ["GET", "POST", "DELETE"],
-      allowedHeaders: ["Content-Type", "Authorization"],
-    })
-  )
-);
+app.use(cors());
 app.use(express.json());
 
 app.get("/notes", auth, (req, res) => {
@@ -53,7 +45,10 @@ app.delete("/notes/:id", async (req, res) => {
   try {
     const noteId = req.params.id;
     console.log(noteId);
-    const deletedNote = await NoteModel.findByIdAndDelete(noteId);
+    const deletedNote = await NoteModel.findByIdAndDelete({
+      _id: noteId,
+      userId: req.user._id,
+    });
     if (deletedNote) {
       res.json({ message: "Note deleted successfully", deletedNote });
     } else {
