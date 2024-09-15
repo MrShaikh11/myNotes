@@ -41,24 +41,29 @@ app.get("/user", auth, (req, res) => {
       res.status(500).send("Server Error!");
     });
 });
-app.delete("/notes/:id", async (req, res) => {
+app.delete("/notes/:id", auth, async (req, res) => {
   try {
     const noteId = req.params.id;
-    console.log(noteId);
-    const deletedNote = await NoteModel.findByIdAndDelete({
+    const userId = req.user._id; // This comes from the `auth` middleware
+
+    const deletedNote = await NoteModel.findOneAndDelete({
       _id: noteId,
-      userId: req.user._id,
+      userId: userId, // Ensure the note belongs to the authenticated user
     });
+
     if (deletedNote) {
       res.json({ message: "Note deleted successfully", deletedNote });
     } else {
-      res.status(404).send("Note not found");
+      res
+        .status(404)
+        .send("Note not found or you are not authorized to delete this note");
     }
   } catch (err) {
     console.log(err.message);
     res.status(500).send("Internal Server Error");
   }
 });
+
 app.post("/addNote", auth, (req, res) => {
   const { title, note, createdOn, modifiedOn } = req.body;
   NoteModel.create({
